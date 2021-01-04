@@ -11,4 +11,4 @@ class PostListView(ListView):
     model = Post
     template_name = "blog/blog_home.html"
     ordering = ['-date_posted']
-    
+    context_object_name = 'posts'
