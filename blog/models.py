@@ -4,6 +4,19 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 
+class Category(models.Model):
+    """ Model for category of our Post (e.g. Sport, Fashion etc.) """
+
+    name = models.CharField(max_length=100, help_text="Write a category for post (e.g. Sport, Fashion etc.)")
+
+    def __str__(self):
+        return self.name
+
+
+
+
+
+
 class Post(models.Model):
     """ Model for our posts """
 
