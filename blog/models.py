@@ -12,7 +12,6 @@ class Category(models.Model):
 
     name = models.CharField(verbose_name="category", max_length=100, help_text="Write a category for post (e.g. Sport, Fashion etc.)")
 
-
     class Meta: 
         verbose_name_plural = "Category"
 
@@ -30,10 +29,13 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
 
 
+    class Meta:
+        ordering = ['-date_posted']
+
+
     def __str__(self):
         return self.title
     
-
     def get_absolute_url(self):
         """
         Returns the url to access a particular instance of Post
