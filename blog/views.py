@@ -1,6 +1,8 @@
 from blog.models import Post
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import (ListView, 
+                                  DetailView,
+                                  )
 
 
 
@@ -15,3 +17,7 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         # context['most_popular_posts'] = Post.objects.order_by('visit_post')[:3] #TODO get three most popular posts
         return context
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "blog/blog_details.html"
