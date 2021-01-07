@@ -22,4 +22,4 @@ def sign_up(request):
 @login_required
 def profile(request):
     """ Function to create user profile """
-    return render('user/profile.html')
+    return render(request, 'users/profile.html')
