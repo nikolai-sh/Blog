@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block banner %}
+<!-- Banner Starts Here -->
+<div class="heading-page header-text">
+  <section class="page-heading">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="text-content">
+            <h2>You're leave your account!</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+<!-- Banner Ends Here -->
+
+{% block content %}    
+<div class="border-top pt-3">
+    <small class="text-muted">
+        <a href="{% url 'sign_in' %}"><h4>Sign In Again</h4></a>
+    </small>
+</div>
+
+{% endblock %}
