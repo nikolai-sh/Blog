@@ -10,7 +10,11 @@
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
 
-    {% block title %}<title>Blog</title>{% endblock %}
+    {% if post.title %}
+      <title>{{ post.title }}</title>
+    {% else %}
+      <title>Blog</title>
+    {% endif %}
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'blog/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -56,18 +60,21 @@ https://templatemo.com/tm-551-stand-blog
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="blog.html">All Posts</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="post-details.html">Sign In</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'sign_up' %}">Sign Up</a>
-              </li>
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'sign_out' %}">Sign Out</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'sign_in' %}">Sign In</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'sign_up' %}">Sign Up</a>
+                </li>            
+              {% endif %}
             </ul>
           </div>
         </div>
