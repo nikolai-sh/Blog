@@ -30,8 +30,8 @@
               <a href="{{ post.get_absolute_url }}"><h4>{{ post.title }}</h4></a>
               <ul class="post-info">
                 <li><a href="#">{{ post.author }}</a></li>
-                <li><a href="#">{{ post.date_posted | date:"F d, Y"  }}</a></li>
-                <li><a href="#">10 Comments</a></li> <!-- #TODO -->
+                <li><a>{{ post.date_posted | date:"F d, Y"  }}</a></li>
+                <li><a>10 Comments</a></li> <!-- #TODO -->
               </ul>
               <p>{{ post.content }}</p>
               <div class="post-options">
