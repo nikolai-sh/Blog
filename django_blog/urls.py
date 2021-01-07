@@ -23,7 +23,7 @@ from users import views as user_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='/blog/', permanent=True)),
-    path('register/', user_views.register, name='register'),
+    path('sign_up/', user_views.sign_up, name='sign_up'),
     path('blog/', include('blog.urls')),
 ]
 

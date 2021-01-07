@@ -3,7 +3,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm
 
 
-def register(request):
+def sign_up(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -13,4 +13,4 @@ def register(request):
             return redirect('blog-home')
     else:
         form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'users/sign_up.html', {'form': form})
