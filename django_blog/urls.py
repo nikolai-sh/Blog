@@ -18,12 +18,15 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static 
+from django.contrib.auth import views as auth_views
 from users import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='/blog/', permanent=True)),
     path('sign_up/', user_views.sign_up, name='sign_up'),
+    path('sign_in/', auth_views.SignInView.as_view(template_name='users/sign_in.html'), name='sign_in'),
+    path('sign_out/', auth_views.SignOutView.as_view(template_name='users/sign_out.html'), name='sign_out'),
     path('blog/', include('blog.urls')),
 ]
 
