@@ -20,9 +20,24 @@
 <!-- Banner Ends Here -->
 
 {% block content %}    
-    <form class="blog-post" method="POST">
-        {% csrf_token %}
-        <fieldset>
+<form class="blog-post" method="POST">
+  {% csrf_token %}
+  <fieldset>
+          <style>
+            .btn-outline-info {
+              color:#f48840;
+              background-color:transparent;
+              background-image:none;
+              border-color:#f48840;
+             }
+             a {
+              color:#f48840;
+              text-decoration:none;
+              background-color:transparent;
+              -webkit-text-decoration-skip:objects
+             }
+             
+          </style>
         {{ form|crispy }}
         </fieldset>
         <div class="form-group">
@@ -34,5 +49,5 @@
             </small>
         </div>      
     </form>   
-</div>
+</div> <!--???????-->
 {% endblock %}
