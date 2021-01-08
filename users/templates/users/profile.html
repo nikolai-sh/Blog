@@ -20,7 +20,15 @@
 {% endblock %}
 <!-- Banner Ends Here -->
 
-
+<style>
+  #id_image {
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+   }
+   
+</style>
 {% block content %}
 
 <div class="col-lg-8">
@@ -35,14 +43,51 @@
                     <img src="{{ user.profile.image.url }}" alt="">
                   </div>
                   <div class="right-content">
-                    <h4>{{ user.username }}</h4>
+                    <h3>{{ user.username }}</h3>
                     <p>{{ user.email }}</p>   
                   </div>
                 </li>
               </ul>
             </div>
           </div>
-        </div>   
+        </div>
+        <div class="col-lg-12">
+          <div class="sidebar-item submit-comment">
+            <div class="sidebar-heading">
+              <h2>Profile Info</h2>
+            </div>
+            <div class="content">
+              <div class="col-lg-12">
+                <fieldset>
+                
+                  <form id="comment"  method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                      <style>
+                        #id_image {
+                          border: none;
+                          padding-top: 7px;
+                        }        
+                        a {
+                          color:#f48840;
+                          text-decoration:none;
+                          background-color:transparent;
+                          -webkit-text-decoration-skip:objects
+                        }
+                        #id_username {
+                          margin-bottom: 10px;
+                        }                               
+                      </style>
+
+                    {{ u_form|crispy }}             
+                    {{ p_form|crispy }}
+                    
+                    <button type="submit" id="form-submit" class="main-button">Update</button>             
+                  </fieldset>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>  
       </div>
     </div>
   </div>
