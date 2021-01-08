@@ -42,7 +42,50 @@
               </ul>
             </div>
           </div>
-        </div>   
+        </div>
+        <div class="col-lg-12">
+          <div class="sidebar-item submit-comment">
+            <div class="sidebar-heading">
+              <h2>Profile Info</h2>
+            </div>
+            <div class="content">
+              {% csrf_token %}
+              <form id="comment"  method="POST">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <fieldset>
+                      {{ u_form|crispy }}
+                    </fieldset>
+                  </div>                            
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>  
+        <fieldset>
+          <div class="col-lg-12">
+            {% csrf_token %}
+              {{ p_form|crispy }}                   
+          </div>         
+        </fieldset>
+        <div class="col-lg-12">
+          <div class="sidebar-item submit-comment">
+            <div class="sidebar-heading">              
+            </div>
+            <div class="content">
+              {% csrf_token %}
+              <form id="comment"  method="POST">
+                <div class="row">                               
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <button type="submit" id="form-submit" class="main-button">Update</button>
+                    </fieldset>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>  
       </div>
     </div>
   </div>
