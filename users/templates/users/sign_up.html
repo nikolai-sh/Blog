@@ -23,6 +23,7 @@
 <form class="blog-post" method="POST">
   {% csrf_token %}
   <fieldset>
+    
           <style>
             .btn-outline-info {
               color:#f48840;
@@ -35,9 +36,9 @@
               text-decoration:none;
               background-color:transparent;
               -webkit-text-decoration-skip:objects
-             }
-             
+             }            
           </style>
+
         {{ form|crispy }}
         </fieldset>
         <div class="form-group">
