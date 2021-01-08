@@ -19,25 +19,35 @@
 {% endblock %}
 <!-- Banner Ends Here -->
 
-{% block content %} 
-
-
-<div class="col-lg-4">
-  <div class="sidebar-item submit-comment">
-    <div class="sidebar-heading">   
-      <form class="blog-post" method="POST">
-          {% csrf_token %}
-          <fieldset>
-          {{ form|crispy }}
-          </fieldset>
-            <button type="submit" id="form-submit" class="main-button">Sign In</button>       
-          <div class="border-top pt-3">
-              <small class="text-muted">
-                  Need an Account? <a class="ml-2" href="{% url 'sign_up' %}">Sign Up</a>
-              </small>
-          </div>      
-      </form>
-    </div>   
-  </div>   
+{% block content %}    
+    <form class="blog-post" method="POST">
+        {% csrf_token %}
+        <fieldset>
+          <style>
+            .btn-outline-info {
+              color:#f48840;
+              background-color:transparent;
+              background-image:none;
+              border-color:#f48840;
+             }
+             a {
+              color:#f48840;
+              text-decoration:none;
+              background-color:transparent;
+              -webkit-text-decoration-skip:objects
+             }
+             
+          </style>
+        {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign In</button>
+        </div>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need an Account? <a class="ml-2" href="{% url 'sign_up' %}">Sign Up</a>
+            </small>
+        </div>      
+    </form>   
 </div>
 {% endblock %}
