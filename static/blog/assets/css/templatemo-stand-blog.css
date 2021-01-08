@@ -13,6 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 p {
 	margin-bottom: 0px;
 	font-size: 15px;
@@ -623,7 +624,20 @@ ul.page-numbers li a:hover {
 	height: 46px;
 	border: 1px solid #eee;
 	font-size: 13px;
-	text-transform: uppercase;
+	text-transform: none;
+	font-weight: 500;
+	color: #7a7a7a;
+	outline: none;
+	padding: 0px 15px;
+	margin-bottom: 30px;
+}
+
+.blog-posts .submit-comment .image {
+	width: 100%;
+	height: 46px;
+	border: none;
+	font-size: 13px;
+	text-transform: none;
 	font-weight: 500;
 	color: #7a7a7a;
 	outline: none;
@@ -636,7 +650,7 @@ ul.page-numbers li a:hover {
 	height: 46px;
 	border: 1px solid #eee;
 	font-size: 13px;
-	text-transform: uppercase;
+	text-transform: none;
 	font-weight: 500;
 	color: #7a7a7a;
 	outline: none;
