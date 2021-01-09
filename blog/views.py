@@ -23,10 +23,24 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context['categories'] = categories
+    
+        return context
     
 
-# class CategoryListView(ListView):
-#     model = Category
-#     template_name = "blog/blog_home.html"
-#     context_object_name = 'categories'
-#     print(Category.objects.all())
+class CategoryPostDetailView(DetailView):
+
+    model = Category
+    template_name = "blog/posts_category.html"
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context['categories'] = categories
+       
+        return context
