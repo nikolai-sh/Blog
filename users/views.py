@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-
+from blog.models import Category
 
 def sign_up(request):
     """ Function to ctreate new user account """
@@ -42,4 +42,7 @@ def profile(request):
         'p_form': p_form
     }
 
+
+    context["categories"] = Category.objects.all()    
+    
     return render(request, 'users/profile.html', context=context)
