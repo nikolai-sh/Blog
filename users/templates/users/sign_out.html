@@ -21,17 +21,13 @@
 
 {% block content %}    
 
-<style>
-  h4 {
-    background-color:#f48840;
-    color: white;
-    padding: 20px;
-  }
-</style>
 <div class="border-down pt-3">
-    <small class="text-muted">
-        <a href="{% url 'sign_in' %}"><h4>Sign In Again</h4></a>
-    </small>
+  <small class="text-muted">
+    <a href="{% url 'sign_in' %}"><h5>Sign In Again</h5></a>
+  </small>
 </div>
 
+{% endblock %}
+
+{% block sidebar %}    
 {% endblock %}
