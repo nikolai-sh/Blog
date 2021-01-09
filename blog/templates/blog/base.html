@@ -31,6 +31,48 @@ TemplateMo 551 Stand Blog
 https://templatemo.com/tm-551-stand-blog
 
 -->
+<style>
+  a {
+    color:#f48840;
+    text-decoration:none;
+    background-color:transparent;
+    -webkit-text-decoration-skip:objects
+   }
+  a:hover {
+    color: black;
+  }   
+
+  #id_image {
+    border: none;
+    padding-top: 7px;
+  }        
+
+  #id_username {
+    margin-bottom: 10px;
+  }      
+
+  .btn-outline-info {
+    color:#f48840;
+    background-color:transparent;
+    background-image:none;
+    border-color:#f48840;
+   }
+
+   h5 {
+    background-color:#f48840;
+    color: white;
+    padding: 10px;
+  }
+
+  .btn-outline-info:hover {
+    color:#fff;
+    background-color:#f48840;
+    border-color:#f48840;
+   }
+   
+
+</style>
+
   </head>
 
   <body>
@@ -101,7 +143,74 @@ https://templatemo.com/tm-551-stand-blog
         <div class="row">
         {% block content %} {% endblock %}
         
-        {% block sidebar %} {% endblock %}
+        {% block sidebar %}
+                          
+          
+          <div class="col-lg-4">
+            <div class="sidebar">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="sidebar-item search">
+                    <form id="search_form" name="gs" method="GET" action="#">
+                      <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
+                    </form>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item recent-posts">
+                    <div class="sidebar-heading">
+                      <h2>Most popular Posts</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        <!-- {% for post in most_popular_posts %}
+                          <li><a href="post-details.html">
+                            <h5>{{ post.title }}</h5>
+                            <span>{{ post.date_posted | date:"F d, Y"  }}</span>
+                          </a></li>
+                        {% endfor %} -->
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item categories">
+                    <div class="sidebar-heading">
+                      <h2>Categories</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        {% for category in categories %}
+                        <li><a href="{{ category.get_absolute_url }}">- {{ category.name }} ({{ category.post_set.count }})</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item tags">
+                    <div class="sidebar-heading">
+                      <h2>Tag Clouds</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        <li><a href="#">Lifestyle</a></li>
+                        <li><a href="#">Creative</a></li>
+                        <li><a href="#">HTML5</a></li>
+                        <li><a href="#">Inspiration</a></li>
+                        <li><a href="#">Motivation</a></li>
+                        <li><a href="#">PSD</a></li>
+                        <li><a href="#">Responsive</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+        {% endblock %}
         </div>
       </div>
     </section>
