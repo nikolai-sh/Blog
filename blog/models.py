@@ -17,6 +17,13 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of Category
+        """
+        return reverse("posts-category", kwargs={"pk": self.pk, "name": self.name})
+
 
 class Post(models.Model):
     """ Model for our posts """
