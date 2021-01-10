@@ -33,6 +33,10 @@
                 <li><a>{{ object.date_posted | date:"F d, Y"  }}</a></li>
                 <li><a>10 Comments</a></li> <!-- #TODO -->
               </ul>
+              {% if object.author == user %}
+              <a class="btn btn-secondary mt-4" href="{% url 'post-update' object.id %}">Update</a>
+              <a class="btn btn-danger mt-4" href="{% url 'post-delete' object.id %}">Delete</a>
+              {% endif %}
               <p>{{ post.content }}</p>
               <div class="post-options">
                 <div class="row">
