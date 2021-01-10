@@ -27,23 +27,18 @@ class Category(models.Model):
 
 class Post(models.Model):
     """ Model for our posts """
-
     title = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
 
-
     class Meta:
         ordering = ['-date_posted']
-
 
     def __str__(self):
         return self.title
     
     def get_absolute_url(self):
-        """
-        Returns the url to access a particular instance of Post
-        """
+        """ Returns the url to access a particular instance of Post """
         return reverse("post-detail", kwargs={"pk": self.pk})
