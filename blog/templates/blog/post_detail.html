@@ -26,11 +26,11 @@
               <img src="assets/images/blog-post-02.jpg" alt="">
             </div>
             <div class="down-content">
-              <span><a href="{{ post.category.get_absolute_url }}"> {{ post.category }}</a></span>
-              <a href="{{ post.get_absolute_url }}"><h4>{{ post.title }}</h4></a>
+              <span><a href="{{ object.category.get_absolute_url }}"> {{ object.category }}</a></span>
+              <a href="{{ post.get_absolute_url }}"><h4>{{ object.title }}</h4></a>
               <ul class="post-info">
-                <li><a href="#">{{ post.author }}</a></li>
-                <li><a>{{ post.date_posted | date:"F d, Y"  }}</a></li>
+                <li><a href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a></li>
+                <li><a>{{ object.date_posted | date:"F d, Y"  }}</a></li>
                 <li><a>10 Comments</a></li> <!-- #TODO -->
               </ul>
               <p>{{ post.content }}</p>

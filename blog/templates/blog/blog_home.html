@@ -36,7 +36,7 @@
                             <span><a href="{{ post.category.get_absolute_url }}"> {{ post.category }}</a></span>
                             <a href="{{ post.get_absolute_url }}"><h4>{{ post.title }}</h4></a>
                             <ul class="post-info">
-                              <li><a href="#">{{ post.author }}</a></li>
+                              <li><a href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a></li>
                               <li><a >{{ post.date_posted | date:"F d, Y"  }}</a></li>
                               <li><a >12 Comments</a></li><!--TODO-->
                             </ul>
