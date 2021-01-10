@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from blog.models import Category
 
+
 def sign_up(request):
     """ Function to ctreate new user account """
 
@@ -16,7 +17,14 @@ def sign_up(request):
             return redirect('sign_in')
     else:
         form = UserRegisterForm()
-    return render(request, 'users/sign_up.html', {'form': form})
+        
+    #Add category list to sidebar in sign_up view
+    context = {
+        'form': form,
+        'categories': Category.objects.all(),
+    }
+
+    return render(request, 'users/sign_up.html', context)
 
 
 @login_required
@@ -42,7 +50,7 @@ def profile(request):
         'p_form': p_form
     }
 
-
+    #Add category list to sidebar in profile view
     context["categories"] = Category.objects.all()    
     
     return render(request, 'users/profile.html', context=context)
