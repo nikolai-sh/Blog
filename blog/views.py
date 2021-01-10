@@ -1,10 +1,10 @@
 from django.views.generic.base import ContextMixin
-from django.views.generic.list import MultipleObjectMixin
 from blog.models import Post, Category
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic import (ListView, 
                                   DetailView,
+                                  CreateView
                                   )
 
 class CategoryMixin(ContextMixin):
@@ -27,6 +27,18 @@ class PostListView(ListView, CategoryMixin):
 class PostDetailView(DetailView, CategoryMixin):
    
     model = Post
+
+
+class PostCreateView(CreateView, CategoryMixin):
+   
+    model = Post
+    fields = ['title', 'content', 'category']
+    
+    def form_valid(self, form):
+        """ Setting the author before create post create form"""
+        
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class CategoryPostDetailView(DetailView, CategoryMixin):
