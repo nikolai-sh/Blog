@@ -1,3 +1,5 @@
+from django.views.generic.base import ContextMixin
+from django.views.generic.list import MultipleObjectMixin
 from blog.models import Post, Category
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
@@ -5,47 +7,35 @@ from django.views.generic import (ListView,
                                   DetailView,
                                   )
 
+class CategoryMixin(ContextMixin):
+    """ Add all categories to context """
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
+    
 
-
-class PostListView(ListView):
+class PostListView(ListView, CategoryMixin):
     
     model = Post
     template_name = "blog/blog_home.html"
     context_object_name = 'posts'
     paginate_by = 5
+   
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        categories = Category.objects.all()
-        context['categories'] = categories
-        return context
-    
-
-class PostDetailView(DetailView):
+class PostDetailView(DetailView, CategoryMixin):
    
     model = Post
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        categories = Category.objects.all()
-        context['categories'] = categories  
-        return context
-    
 
-class CategoryPostDetailView(DetailView):
+class CategoryPostDetailView(DetailView, CategoryMixin):
 
     model = Category
-    template_name = "blog/posts_category.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        categories = Category.objects.all()
-        context['categories'] = categories      
-        return context
-    
+    template_name = "blog/posts_category.html" 
 
 
-class UserPostListView(ListView):
+class UserPostListView(ListView, CategoryMixin ):
     
     model = Post
     template_name = "blog/user_posts.html"
@@ -56,9 +46,3 @@ class UserPostListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        categories = Category.objects.all()
-        context['categories'] = categories
-        return context
-  
