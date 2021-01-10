@@ -27,7 +27,7 @@
             </div>
             <div class="down-content">
               <span><a href="{{ object.category.get_absolute_url }}"> {{ object.category }}</a></span>
-              <a href="{{ post.get_absolute_url }}"><h4>{{ object.title }}</h4></a>
+                <h4>{{ object.title }}</h4>
               <ul class="post-info">
                 <li><a href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a></li>
                 <li><a>{{ object.date_posted | date:"F d, Y"  }}</a></li>
