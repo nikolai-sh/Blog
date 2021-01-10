@@ -7,7 +7,6 @@ from blog.models import Category
 
 def sign_up(request):
     """ Function to ctreate new user account """
-
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -29,8 +28,7 @@ def sign_up(request):
 
 @login_required
 def profile(request):
-    """ Function to create and update user profile """
-    
+    """ Function to create and update user profile """   
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, 
