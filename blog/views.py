@@ -1,10 +1,12 @@
 from django.views.generic.base import ContextMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from blog.models import Post, Category
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic import (ListView, 
                                   DetailView,
-                                  CreateView
+                                  CreateView,
+                                  UpdateView
                                   )
 
 class CategoryMixin(ContextMixin):
@@ -29,16 +31,36 @@ class PostDetailView(DetailView, CategoryMixin):
     model = Post
 
 
-class PostCreateView(CreateView, CategoryMixin):
+class PostCreateView(LoginRequiredMixin, CreateView, CategoryMixin):
    
     model = Post
     fields = ['title', 'content', 'category']
     
     def form_valid(self, form):
         """ Setting the author before create post create form"""
-        
+
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, CategoryMixin):
+   
+    model = Post
+    fields = ['title', 'content', 'category']
+    
+    def form_valid(self, form):
+        """ Setting the author before create post create form"""
+
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        """ Check if user is author of post """
+
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
 
 
 class CategoryPostDetailView(DetailView, CategoryMixin):
