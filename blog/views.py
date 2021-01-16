@@ -44,7 +44,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin,
                      UpdateView, CategoryMixin
                      ):
     model = Post
-    fields = ['title', 'content', 'category']
+    fields = ['title', 'content', 'category', 'image']
     
     def form_valid(self, form):
         """ Setting the author before create post create form """
