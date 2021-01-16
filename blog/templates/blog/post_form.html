@@ -22,7 +22,7 @@
 {% block content %}    
   <div class="col-lg-8">
     <div class="col-lg-8">
-    <form class="blog-post" method="POST">
+    <form class="blog-post" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <fieldset>     
         {{ form|crispy }}
