@@ -17,7 +17,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    
     def get_absolute_url(self):
         """
         Returns the url to access a particular instance of Category
@@ -32,6 +31,7 @@ class Post(models.Model):
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(default='img_lights.jpg', upload_to='post_pics/')
 
     class Meta:
         ordering = ['-date_posted']
