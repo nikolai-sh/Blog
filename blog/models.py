@@ -31,7 +31,7 @@ class Post(models.Model):
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(default='img_lights.jpg', upload_to='post_pics/')
+    image = models.ImageField(default='img_lights.jpg', upload_to='post_pics')
 
     class Meta:
         ordering = ['-date_posted']
