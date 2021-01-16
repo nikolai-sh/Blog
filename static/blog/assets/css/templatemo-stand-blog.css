@@ -400,6 +400,8 @@ header .navbar {
 
 .blog-posts {
 	margin-top: 100px;
+	padding-left: 150px;
+	padding-right: 150px;
 }
 
 .blog-posts .blog-post {
