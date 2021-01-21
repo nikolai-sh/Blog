@@ -92,16 +92,14 @@ class UserPostListView(ListView, CategoryMixin ):
 class SearchResultsView(ListView, CategoryMixin):
     model = Post
     template_name = 'blog/search_results.html'
-    # paginate_by = 5
+    paginate_by = 5
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        if not query:
-            query = ''
-        return Post.objects.filter(
-            Q(title__icontains=query) | Q(content__icontains=query) 
-        )
-       
+        if query:
+            return Post.objects.filter(
+                Q(title__icontains=query) | Q(content__icontains=query))
+   
         
     
         
