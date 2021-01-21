@@ -1,0 +1,96 @@
+{% extends 'blog/base.html' %}
+
+
+    <!-- Page Content -->
+    {% block banner %}
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h2>Blog posts</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    {% endblock %}
+    <!-- Banner Ends Here -->
+
+    
+    
+          {% block content %}
+              <div class="col-lg-8">
+                <div class="all-blog-posts">
+                  <div class="row">
+                    {% for post in object_list %}
+                      <div class="col-lg-12">
+                        <div class="blog-post">
+                          <div class="blog-thumb">
+                            <img style="max-height: 340px;" src="{{ post.image.url }}" alt="">
+                          </div>
+                          <div class="down-content">
+                            <span><a href="{{ post.category.get_absolute_url }}"> {{ post.category }}</a></span>
+                            <a href="{{ post.get_absolute_url }}"><h4>{{ post.title }}</h4></a>
+                            <ul class="post-info">
+                              <li><a href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a></li>
+                              <li><a >{{ post.date_posted | date:"F d, Y"  }}</a></li>
+                              <li><a >12 Comments</a></li><!--TODO-->
+                            </ul>
+                            <p>{{ post.content | truncatewords:20 }}</p>
+                            <div class="post-options">
+                              <div class="row">
+                                <div class="col-6">
+                                  <ul class="post-tags">
+                                    <li><i class="fa fa-tags"></i></li>
+                                    <li><a href="#">Beauty</a>,</li><!--TODO-->
+                                    <li><a href="#">Nature</a></li>
+                                  </ul>
+                                </div>
+                                <div class="col-6">
+                                  <ul class="post-share">
+                                    <li><i class="fa fa-share-alt"></i></li>
+                                    <li><a href="#">Facebook</a>,</li>
+                                    <li><a href="#"> Twitter</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>        
+                    {% empty %}
+                        <h3>No results for '{{ request.GET.q }}'</h3>                             
+                    {% endfor %}
+                    
+                    <div class="col-lg-12">
+                          {% if is_paginated %}      
+                          <ul class="page-numbers">
+                          {% if page_obj.has_previous %}  
+                                <li><a href="?page=1">First</a></li>
+                                <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+                          
+                          {% endif %}
+                              {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                  <li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+                                {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                                  <li><a href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                              {% endfor %}
+                          {% if page_obj.has_next %}                   
+                              <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                              <li><a href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+                          {% endif %} 
+                              </ul> 
+                          {% endif %}
+                    </div>                       
+                  </div>
+                </div>
+              </div>             
+          {% endblock %} 
+         
+  
