@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from blog.models import Post, Category
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
+from django.db.models import Q, query 
 from django.views.generic import (ListView, 
                                   DetailView,
                                   CreateView,
@@ -88,3 +89,20 @@ class UserPostListView(ListView, CategoryMixin ):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
+class SearchResultsView(ListView, CategoryMixin):
+    model = Post
+    template_name = 'blog/search_results.html'
+    # paginate_by = 5
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if not query:
+            query = ''
+        return Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query) 
+        )
+       
+        
+    
+        
+        
