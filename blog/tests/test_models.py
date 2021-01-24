@@ -8,7 +8,16 @@ class CategoryModelTest(TestCase):
     def setUpTestData(cls) -> None:
         Category.objects.create(name='History')
     
-    
+    def test_name_label(self):
+        name = Category.objects.get(id=1)
+        field_label = name._meta.get_field('name').verbose_name
+        self.assertEqual(field_label, 'category')
+
+    def test_name_max_length(self):
+        name = Category.objects.get(id=1)
+        max_length = name._meta.get_field('name').max_length
+        self.assertEqual(max_length, 100)
+
 
 class PostModelTest(TestCase):
     @classmethod
@@ -19,7 +28,10 @@ class PostModelTest(TestCase):
                     category=Category.objects.create(name='Sport'))
 
     def test_title_max_length(self):
-        title = Post.objects.get(id=1)
-        max_length = title._meta.get_field('title').max_length
+        post = Post.objects.get(id=1)
+        max_length = post._meta.get_field('title').max_length
         self.assertEqual(max_length, 100)
 
+    def test_get_absolute_url(self):
+        post = Post.objects.get(id=1)
+        self.assertEqual(post.get_absolute_url(), '/blog/1/')
