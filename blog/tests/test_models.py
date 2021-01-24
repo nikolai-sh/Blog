@@ -18,6 +18,10 @@ class CategoryModelTest(TestCase):
         max_length = category._meta.get_field('name').max_length
         self.assertEqual(max_length, 100)
 
+    def test_get_absolute_url(self):
+        category = Category.objects.get(id=1)
+        self.assertEqual(category.get_absolute_url(), '/blog/category/1/History/')
+
 
 class PostModelTest(TestCase):
     @classmethod
