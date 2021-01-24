@@ -9,13 +9,13 @@ class CategoryModelTest(TestCase):
         Category.objects.create(name='History')
     
     def test_name_label(self):
-        name = Category.objects.get(id=1)
-        field_label = name._meta.get_field('name').verbose_name
+        category = Category.objects.get(id=1)
+        field_label = category._meta.get_field('name').verbose_name
         self.assertEqual(field_label, 'category')
 
     def test_name_max_length(self):
-        name = Category.objects.get(id=1)
-        max_length = name._meta.get_field('name').max_length
+        category = Category.objects.get(id=1)
+        max_length = category._meta.get_field('name').max_length
         self.assertEqual(max_length, 100)
 
 
