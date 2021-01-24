@@ -3,6 +3,13 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from blog.models import Category, Post
 
+class CategoryModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        Category.objects.create(name='History')
+    
+    
+
 class PostModelTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
@@ -15,3 +22,4 @@ class PostModelTest(TestCase):
         title = Post.objects.get(id=1)
         max_length = title._meta.get_field('title').max_length
         self.assertEqual(max_length, 100)
+
