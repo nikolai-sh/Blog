@@ -167,12 +167,12 @@ https://templatemo.com/tm-551-stand-blog
                     </div>
                     <div class="content">
                       <ul>
-                        <!-- {% for post in most_popular_posts %}
-                          <li><a href="post-details.html">
-                            <h5>{{ post.title }}</h5>
+                        {% for post in popular_posts %}
+                          <li><a href="{{ post.get_absolute_url }}">
+                            <h6 style="color:black">{{ post.title }}</h6>
                             <span>{{ post.date_posted | date:"F d, Y"  }}</span>
                           </a></li>
-                        {% endfor %} -->
+                        {% endfor %}
                       </ul>
                     </div>
                   </div>
