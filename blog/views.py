@@ -3,9 +3,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from blog.models import Post, Category
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from django.db.models import Q, query 
+from django.db.models import Q, query
+from hitcount.views import HitCountDetailView
 from django.views.generic import (ListView, 
-                                  DetailView,
                                   CreateView,
                                   UpdateView,
                                   DeleteView
@@ -27,9 +27,9 @@ class PostListView(ListView, CategoryMixin):
     paginate_by = 5
    
 
-class PostDetailView(DetailView, CategoryMixin):  
+class PostDetailView(HitCountDetailView, CategoryMixin):  
     model = Post
-
+    count_hit = True
 
 class PostCreateView(LoginRequiredMixin, CreateView, CategoryMixin):
     model = Post
@@ -74,9 +74,11 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin,
         return False
 
 
-class CategoryPostDetailView(DetailView, CategoryMixin):
+class CategoryPostDetailView(HitCountDetailView, CategoryMixin):
+    
     model = Category
     template_name = "blog/posts_category.html" 
+
 
 
 class UserPostListView(ListView, CategoryMixin ):  
