@@ -12,26 +12,27 @@ from django.views.generic import (ListView,
                                   )
 
 
-class CategoryMixin(ContextMixin):
+class SidebarMixin(ContextMixin):
     """ Add all categories to context """  
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.all()
+        context["popular_posts"] = Post.objects.order_by('-hit_count_generic__hits')[:3]
         return context
     
 
-class PostListView(ListView, CategoryMixin): 
+class PostListView(ListView, SidebarMixin): 
     model = Post
     template_name = "blog/blog_home.html"
     context_object_name = 'posts'
     paginate_by = 5
    
 
-class PostDetailView(HitCountDetailView, CategoryMixin):  
+class PostDetailView(HitCountDetailView, SidebarMixin):  
     model = Post
     count_hit = True
 
-class PostCreateView(LoginRequiredMixin, CreateView, CategoryMixin):
+class PostCreateView(LoginRequiredMixin, CreateView, SidebarMixin):
     model = Post
     fields = ['title', 'content', 'category', 'image']
     
@@ -42,7 +43,7 @@ class PostCreateView(LoginRequiredMixin, CreateView, CategoryMixin):
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin,
-                     UpdateView, CategoryMixin
+                     UpdateView,SidebarMixin 
                      ):
     model = Post
     fields = ['title', 'content', 'category', 'image']
@@ -61,7 +62,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin,
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin,
-                     DeleteView, CategoryMixin
+                     DeleteView,SidebarMixin 
                      ):  
     model = Post
     success_url = '/' #redirect to home page after delete post
@@ -74,14 +75,14 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin,
         return False
 
 
-class CategoryPostDetailView(HitCountDetailView, CategoryMixin):
+class CategoryPostDetailView(HitCountDetailView, SidebarMixin):
     
     model = Category
     template_name = "blog/posts_category.html" 
 
 
 
-class UserPostListView(ListView, CategoryMixin ):  
+class UserPostListView(ListView, SidebarMixin ):  
     model = Post
     template_name = "blog/user_posts.html"
     context_object_name = 'posts'
@@ -91,7 +92,7 @@ class UserPostListView(ListView, CategoryMixin ):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
-class SearchResultsView(ListView, CategoryMixin):
+class SearchResultsView(ListView, SidebarMixin):
     model = Post
     template_name = 'blog/search_results.html'
     paginate_by = 5
