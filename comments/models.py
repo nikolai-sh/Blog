@@ -7,6 +7,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, related_name='comments')
     body = models.TextField(max_length=500)
     pub_date = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
     
     class Meta:
