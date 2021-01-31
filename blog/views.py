@@ -13,7 +13,7 @@ from django.views.generic import (ListView,
 
 
 class SidebarMixin(ContextMixin):
-    """ Add all categories to context """  
+    """ Add sidebar data to context """  
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.all()
