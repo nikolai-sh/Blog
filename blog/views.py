@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.db.models import Q, query
 from hitcount.views import HitCountDetailView
+from comments.forms import CommentForm
 from django.views.generic import (ListView, 
                                   CreateView,
                                   UpdateView,
@@ -31,6 +32,21 @@ class PostListView(ListView, SidebarMixin):
 class PostDetailView(HitCountDetailView, SidebarMixin):  
     model = Post
     count_hit = True
+    comment_form_class = CommentForm
+
+
+    def get_context_data(self, **kwargs):
+        def add_comment(self, request):
+            if request.method == 'POST':
+                comment_form = self.comment_form_class()
+                if comment_form.is_valid():
+                    self.save(comment_form)
+                return self.redirect('post-detail')     
+        
+        comments_form = add_comment(self)
+        context = super().get_context_data(**kwargs)
+        context["comments_form"] = comments_form
+        return context
 
 class PostCreateView(LoginRequiredMixin, CreateView, SidebarMixin):
     model = Post
