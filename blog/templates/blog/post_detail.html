@@ -1,21 +1,8 @@
 {% extends "blog/blog_home.html" %}
 {% load hitcount_tags %}
 
-{% block banner %}
-<div class="heading-page header-text">
-    <section class="page-heading">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="text-content">
-              <h2>Post</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-{% endblock %}
+
+{% block banner_text %}<h2>Post</h2>{% endblock %}  
 
 {% block content %} 
   <div class="col-lg-8">
@@ -40,24 +27,6 @@
               <a class="btn btn-danger mt-4" href="{% url 'post-delete' object.id %}">Delete</a>
               {% endif %}
               <p>{{ object.content }}</p>
-              <div class="post-options">
-                <div class="row">
-                  <div class="col-6">
-                    <ul class="post-tags">
-                      <li><i class="fa fa-tags"></i></li>
-                      <li><a href="#">Best Templates</a>,</li>
-                      <li><a href="#">TemplateMo</a></li>
-                    </ul>
-                  </div>
-                  <div class="col-6">
-                    <ul class="post-share">
-                      <li><i class="fa fa-share-alt"></i></li>
-                      <li><a href="#">Facebook</a>,</li>
-                      <li><a href="#"> Twitter</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

@@ -35,18 +35,18 @@ class PostDetailView(HitCountDetailView, SidebarMixin):
     comment_form_class = CommentForm
 
 
-    def get_context_data(self, **kwargs):
-        def add_comment(self, request):
-            if request.method == 'POST':
-                comment_form = self.comment_form_class()
-                if comment_form.is_valid():
-                    self.save(comment_form)
-                return self.redirect('post-detail')     
+    # def get_context_data(self, **kwargs):
+    #     # def add_comment(self, request):
+    #     #     if request.method == 'POST':
+    #     #         comment_form = self.comment_form_class()
+    #     #         if comment_form.is_valid():
+    #     #             self.save(comment_form)
+    #     #         return self.redirect('post-detail')     
         
-        comments_form = add_comment(self)
-        context = super().get_context_data(**kwargs)
-        context["comments_form"] = comments_form
-        return context
+    #     # comments_form = add_comment(self)
+    #     context = super().get_context_data(**kwargs)
+    #     context["comments_form"] = comments_form
+    #     return context
 
 class PostCreateView(LoginRequiredMixin, CreateView, SidebarMixin):
     model = Post
