@@ -45,3 +45,6 @@ class Post(models.Model):
     def get_absolute_url(self):
         """ Returns the url to access a particular instance of Post """
         return reverse("post-detail", kwargs={"pk": self.pk})
+    
+    def approved_comments(self):
+        return self.comments.filter(approved_comment=True)

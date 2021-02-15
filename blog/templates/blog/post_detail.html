@@ -32,34 +32,31 @@
         </div>
         <div class="col-lg-12">
           <div class="sidebar-item comments">
+            <div class="sidebar-heading">
+              <h2><a class="btn btn-default" href="{% url 'add_comment_to_post' pk=object.pk %}">Add comment</a></h2>
+            </div>
             <div class="content">
               <ul>
                 {% for comment in object.comments.all %}
+                  {% if user.is_authenticated or comment.approved_comment %}
                 <li>
-                  <div class="author-thumb">
-                    <img src="{{ comment.user.profile.image.url }}" alt="">
-                  </div>
-                  <div class="right-content">
-                    <h4>{{ comment.user }}<span>{{ comment.pub_date }}</span></h4>
-                    <p>{{ comment.body }}</p>
+                    <div class="author-thumb">
+                      <img src="{{ comment.author.profile.image.url }}" alt="">
+                    </div>
+                    <div class="right-content">
+                      {% if not comment.approved_comment %}
+                      <p>
+                        <a class="btn btn-danger btn-sm" href="{% url 'comment_remove' pk=comment.pk %}">Delete</a>
+                        <a class="btn btn-default btn-sm" href="{% url 'comment_approve' pk=comment.pk %}">Approve</a>
+                      </p>
+                      {% endif %}
+                    <h4>{{ comment.author }}<span>{{ comment.created_date }}</span></h4>
+                    <p>{{ comment.text }}</p>
                   </div>
                 </li> 
+                  {% endif %}
                 {% endfor %}       
               </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="sidebar-item submit-comment">
-            <div class="sidebar-heading">
-              <h2>Add comment</h2>
-            </div>
-            <div class="content">
-              <form method="post" style="margin-top: 1.3em;">
-                {% csrf_token %}
-                {{ comments_form }}
-                <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-              </form>          
             </div>
           </div>
         </div>

@@ -1,11 +1,14 @@
-from django.views.generic.base import ContextMixin
+import django
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from blog.models import Post, Category
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.models import User
-from django.db.models import Q, query
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.views.generic.base import ContextMixin
 from hitcount.views import HitCountDetailView
+from django.contrib.auth.models import User
+from blog.models import Post, Category
 from comments.forms import CommentForm
+from django.db.models import Q, query
+from comments.models import Comment
 from django.views.generic import (ListView, 
                                   CreateView,
                                   UpdateView,
@@ -32,7 +35,6 @@ class PostListView(ListView, SidebarMixin):
 class PostDetailView(HitCountDetailView, SidebarMixin):  
     model = Post
     count_hit = True
-    comment_form_class = CommentForm
 
 
     # def get_context_data(self, **kwargs):
@@ -120,6 +122,27 @@ class SearchResultsView(ListView, SidebarMixin):
                 Q(title__icontains=query) | Q(content__icontains=query))
    
         
-    
-        
-        
+def add_comment_to_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('post-detail', pk=post.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/add_comment_to_post.html', {'form': form})
+
+@login_required
+def comment_approve(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.approve()
+    return redirect('post-detail', pk=comment.post.pk)
+
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.delete()
+    return redirect('post-detail', pk=comment.post.pk)
