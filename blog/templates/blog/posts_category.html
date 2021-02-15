@@ -20,7 +20,7 @@
                   <ul class="post-info">
                     <li><a href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a></li>
                     <li><a >{{ post.date_posted | date:"F d, Y"  }}</a></li>
-                    <li><a >12 Comments</a></li><!--TODO-->
+                    <li><a >Comments: {{ post.approved_comments.count }}</a></li>
                     <li><a>{% get_hit_count for post %} views</a></li> 
                   </ul>
                   <p>{{ post.content | truncatewords:20 }}</p>
